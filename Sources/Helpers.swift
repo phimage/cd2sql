@@ -37,21 +37,74 @@ extension MomAttribute.AttributeType {
 
     var sqliteName: String {
         switch self {
-        case .string:
+        case .string, .uuid, .uri:
             return "VARCHAR"
         case .date:
             return "TIMESTAMP"
-        case .integer32:
+        case .integer16, .integer32, .integer64:
             return "INTEGER"
         case .boolean:
             return "INTEGER"
-        case .binary, .transformable:
+        case .float, .decimal:
+            return "FLOAT"
+        case .double:
+            return "DOUBLE"
+        case .binary, .transformable, .undefined:
             return "BLOB"
-        default:
-            return self.rawValue.uppercased()
+        case .objectID:
+            return "VARCHAR"
         }
     }
 
+    var sqlName: String {
+        switch self {
+        case .string, .uuid, .uri:
+            return "VARCHAR"
+        case .date:
+            return "TIMESTAMP"
+        case .integer16:
+            return "INTEGER"
+        case .integer32:
+            return "INTEGER"
+        case .integer64:
+            return "INTEGER"
+        case .boolean:
+            return "INTEGER"
+        case .float, .decimal:
+            return "FLOAT"
+        case .double:
+            return "DOUBLE"
+        case .binary, .transformable, .undefined:
+            return "BLOB"
+        case .objectID:
+            return "VARCHAR"
+        }
+    }
+
+    var sqlServerName: String {
+        switch self {
+        case .string, .uuid, .uri:
+            return "VARCHAR"
+        case .date:
+            return "TIMESTAMP"
+        case .integer16:
+            return "smallint"
+        case .integer32:
+            return "int"
+        case .integer64:
+            return "bigint"
+        case .boolean:
+            return "tinyint"
+        case .float, .decimal:
+            return "FLOAT"
+        case .double:
+            return "DOUBLE"
+        case .binary, .transformable, .undefined:
+            return "BLOB"
+        case .objectID:
+            return "VARCHAR"
+        }
+    }
 }
 
 extension MomUserInfo {
